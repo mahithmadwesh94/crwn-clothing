@@ -7,15 +7,11 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import signInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-<<<<<<< HEAD
-import { auth } from './firebase/firebase.utils'
-=======
->>>>>>> ecf177e332d4ac90a1e2a8062e6540b3aa8080b7
+import { auth, createUserProfileDocument } from './firebase/firebase.utils'
 
 
 
 
-<<<<<<< HEAD
 class App extends React.Component {
   constructor() {
     super();
@@ -28,10 +24,26 @@ class App extends React.Component {
   unsubscribeFromAuth = null
 
   componentDidMount() {
-    auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
-      console.log(user)
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot => {
+          console.log(snapshot.data())
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          })
+          this.setState({ currentUser: userAuth })
+        })
+      } else {
+        this.setState({ currentUser: null }, () => {
+          console.log(this.state)
+        })
+      }
     })
   }
 
@@ -53,21 +65,6 @@ class App extends React.Component {
       </div>
     );
   }
-=======
-function App(props) {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/shop' component={ShopPage} />
-        <Route exact path='/signin' component={signInAndSignUp} />
-      </Switch>
-
-
-    </div>
-  );
->>>>>>> ecf177e332d4ac90a1e2a8062e6540b3aa8080b7
 }
 
 export default App;
