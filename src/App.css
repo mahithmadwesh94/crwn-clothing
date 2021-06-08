@@ -6,8 +6,11 @@ body{
 a{
    text-decoration: none;
    color: black;
+<<<<<<< HEAD
 }
 
 *{
    box-sizing: border-box;
+=======
+>>>>>>> ecf177e332d4ac90a1e2a8062e6540b3aa8080b7
 }

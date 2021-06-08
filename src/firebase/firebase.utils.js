@@ -1,5 +1,9 @@
 import firebase from 'firebase/app';
+<<<<<<< HEAD
 import 'firebase/firestore';
+=======
+import 'firbase/firestore';
+>>>>>>> ecf177e332d4ac90a1e2a8062e6540b3aa8080b7
 import 'firebase/auth';
 
 const config = {
@@ -19,7 +23,11 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
+<<<<<<< HEAD
 provider.setCustomParameters({ prompt: 'select_account' });
+=======
+provider.setCustomParameters({ prompt: 'Select_account' });
+>>>>>>> ecf177e332d4ac90a1e2a8062e6540b3aa8080b7
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
